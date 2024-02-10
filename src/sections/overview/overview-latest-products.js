@@ -22,7 +22,7 @@ export const OverviewLatestProducts = (props) => {
 
   return (
     <Card sx={sx}>
-      <CardHeader title="Latest Products" />
+      {/* <CardHeader title="Latest Products" /> */}
       <List>
         {products.map((product, index) => {
           const hasDivider = index < products.length - 1;
@@ -33,7 +33,7 @@ export const OverviewLatestProducts = (props) => {
               divider={hasDivider}
               key={product.id}
             >
-              <ListItemAvatar>
+              {/* <ListItemAvatar>
                 {
                   product.image
                     ? (
@@ -58,24 +58,24 @@ export const OverviewLatestProducts = (props) => {
                       />
                     )
                 }
-              </ListItemAvatar>
-              <ListItemText
+              </ListItemAvatar> */}
+              {/* <ListItemText
                 primary={product.name}
                 primaryTypographyProps={{ variant: 'subtitle1' }}
                 secondary={`Updated ${ago} ago`}
                 secondaryTypographyProps={{ variant: 'body2' }}
-              />
-              <IconButton edge="end">
+              /> */}
+              {/* <IconButton edge="end">
                 <SvgIcon>
                   <EllipsisVerticalIcon />
                 </SvgIcon>
-              </IconButton>
+              </IconButton> */}
             </ListItem>
           );
         })}
       </List>
       <Divider />
-      <CardActions sx={{ justifyContent: 'flex-end' }}>
+      {/* <CardActions sx={{ justifyContent: 'flex-end' }}>
         <Button
           color="inherit"
           endIcon={(
@@ -88,7 +88,7 @@ export const OverviewLatestProducts = (props) => {
         >
           View all
         </Button>
-      </CardActions>
+      </CardActions> */}
     </Card>
   );
 };

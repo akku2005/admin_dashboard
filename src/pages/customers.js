@@ -199,7 +199,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Customers | Devias Kit
+          Customers | Finteck Kit
         </title>
       </Head>
       <Box
@@ -288,3 +288,6 @@ Page.getLayout = (page) => (
 );
 
 export default Page;
+
+
+

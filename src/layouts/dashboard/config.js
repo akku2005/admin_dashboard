@@ -7,6 +7,9 @@ import UserPlusIcon from '@heroicons/react/24/solid/UserPlusIcon';
 import UsersIcon from '@heroicons/react/24/solid/UsersIcon';
 import XCircleIcon from '@heroicons/react/24/solid/XCircleIcon';
 import { SvgIcon } from '@mui/material';
+import FolderIcon from '@mui/icons-material/Folder';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+
 
 export const items = [
   {
@@ -15,6 +18,24 @@ export const items = [
     icon: (
       <SvgIcon fontSize="small">
         <ChartBarIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'File Manager',
+    path: '/file-upload',
+    icon: (
+      <SvgIcon fontSize="small">
+        <FolderIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Mail',
+    path: '/mail',
+    icon: (
+      <SvgIcon fontSize="small">
+        <MailOutlineIcon />
       </SvgIcon>
     )
   },
@@ -73,6 +94,15 @@ export const items = [
     )
   },
   {
+    title: 'Reset Password',
+    path: '/auth/reset-password',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserPlusIcon />
+      </SvgIcon>
+    )
+  },
+  {
     title: 'Error',
     path: '/404',
     icon: (
@@ -82,3 +112,4 @@ export const items = [
     )
   }
 ];
+

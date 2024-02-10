@@ -62,3 +62,4 @@ OverviewTasksProgress.propTypes = {
   value: PropTypes.number.isRequired,
   sx: PropTypes.object
 };
+

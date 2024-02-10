@@ -42,7 +42,7 @@ export const AccountPopover = (props) => {
           color="text.secondary"
           variant="body2"
         >
-          Anika Visser
+          Akash Sahu
         </Typography>
       </Box>
       <Divider />
@@ -51,12 +51,18 @@ export const AccountPopover = (props) => {
         dense
         sx={{
           p: '8px',
-          '& > *': {
-            borderRadius: 1
-          }
         }}
       >
-        <MenuItem onClick={handleSignOut}>
+        <MenuItem
+          onClick={handleSignOut}
+          sx={{
+            '&:hover': {
+              backgroundColor: 'rgb(1,102,241,0.5)', 
+              borderRadius:"15px",
+              transition: 'background-color 0.6s ease', 
+            },
+          }}
+        >
           Sign out
         </MenuItem>
       </MenuList>
