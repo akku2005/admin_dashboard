@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import {
   Box,
   Button,
@@ -8,57 +8,117 @@ import {
   CardHeader,
   Divider,
   TextField,
-  Unstable_Grid2 as Grid
+  Unstable_Grid2 as Grid,
+  CircularProgress,
 } from '@mui/material';
 
 const states = [
   {
     value: 'alabama',
-    label: 'Alabama'
+    label: 'Ranchi',
   },
   {
     value: 'new-york',
-    label: 'New York'
+    label: 'New York',
   },
   {
     value: 'san-francisco',
-    label: 'San Francisco'
+    label: 'San Francisco',
   },
   {
     value: 'los-angeles',
-    label: 'Los Angeles'
-  }
+    label: 'Los Angeles',
+  },
 ];
 
-export const AccountProfileDetails = () => {
+export const AccountProfileDetails = ({ setAvatarUrl }) => {
   const [values, setValues] = useState({
-    firstName: 'Anika',
-    lastName: 'Visser',
-    email: 'demo@devias.io',
+    firstName: '',
+    lastName: '',
+    email: '',
     phone: '',
-    state: 'los-angeles',
-    country: 'USA'
+    state: 'Bhubaneswar',
+    country: 'INDIA',
   });
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    // Fetch user details when component mounts to set default values
+    const fetchUserDetails = async () => {
+      try {
+        const token = 'your_token_here';
+        const response = await fetch('http://localhost:8080/v1/getUsers', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const user = await response.json();
+        setValues(user);
+      } catch (error) {
+        console.error('Error fetching user details:', error);
+      }
+    };
+
+    fetchUserDetails();
+  }, []);
 
   const handleChange = useCallback(
     (event) => {
-      setValues((prevState) => ({
-        ...prevState,
-        [event.target.name]: event.target.value
+      setValues((prevValues) => ({
+        ...prevValues,
+        [event.target.name]: event.target.value,
       }));
     },
     []
   );
 
   const handleSubmit = useCallback(
-    (event) => {
+    async (event) => {
       event.preventDefault();
+      setLoading(true);
+
+      try {
+        const token = 'your_token_here';
+        
+        // Simulate an asynchronous operation (e.g., API call) for updating user details
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
+        // Save user details to server
+        const bodyData = JSON.stringify(values || {});
+        const response = await fetch('http://localhost:8080/v1/manageUsers', {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: bodyData,
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          console.log('User details saved successfully.');
+          // Update the avatar URL in TopNav.js
+          setAvatarUrl('/new/avatar/url.png');
+        } else {
+          console.error('Error saving user details:', result.message);
+        }
+      } catch (error) {
+        console.error('Error updating user details:', error);
+      } finally {
+        setLoading(false);
+      }
     },
-    []
+    [values, setAvatarUrl]
   );
 
   return (
-    <form
+    
+<form
       autoComplete="off"
       noValidate
       onSubmit={handleSubmit}
@@ -177,3 +237,5 @@ export const AccountProfileDetails = () => {
     </form>
   );
 };
+
+

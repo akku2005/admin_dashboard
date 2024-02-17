@@ -24,13 +24,13 @@ const handlers = {
       ...state,
       ...(user
         ? {
-            isAuthenticated: true,
-            isLoading: false,
-            user,
-          }
+          isAuthenticated: true,
+          isLoading: false,
+          user,
+        }
         : {
-            isLoading: false,
-          }),
+          isLoading: false,
+        }),
     };
   },
   [HANDLERS.SIGN_IN]: (state, action) => {
@@ -180,10 +180,12 @@ export const AuthProvider = (props) => {
     });
   };
 
-  const resetPassword = async (email) => {
+  const resetPassword = async (email, code, newPassword) => {
     try {
       const response = await axios.post('http://localhost:8080/v1/auth/reset-password', {
         email: email,
+        token: code,
+        password: newPassword,
       });
 
       const user = response.data.user;

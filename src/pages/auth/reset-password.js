@@ -1,16 +1,10 @@
 // reset-password.js
 import React, { useState } from 'react';
 import Head from 'next/head';
+import { Box, Button, TextField, Typography, Alert } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import {
-  Box,
-  Button,
-  TextField,
-  Typography,
-  Alert,
-} from '@mui/material';
 import { useAuthContext } from 'src/contexts/auth-context';
 import { Layout as AuthLayout } from 'src/layouts/auth/layout';
 
@@ -18,7 +12,7 @@ const generateRandomCode = () => {
   return Math.floor(100000 + Math.random() * 900000).toString();
 };
 
-const Page = () => {
+const ResetPassword = () => {
   const router = useRouter();
   const auth = useAuthContext();
   const [resetSuccess, setResetSuccess] = useState(false);
@@ -76,8 +70,11 @@ const Page = () => {
             throw new Error('Passwords do not match');
           }
 
-          // Perform password reset (you should implement this)
-          await auth.resetPassword(values.email, values.newPassword);
+          // Retrieve token from query parameter
+          const { token } = router.query;
+
+          // Perform password reset
+          await auth.resetPassword({ token }, { password: values.newPassword });
 
           // Set reset success flag
           setResetSuccess(true);
@@ -192,8 +189,8 @@ const Page = () => {
                 </Button>
                 {currentStep === 'code' && (
                   <Typography variant="body2" sx={{ mt: 2 }}>
-                    Go back to{' '}
-                    <a onClick={() => setCurrentStep('email')} style={{ cursor: 'pointer' }}>
+                    Go back to{' '} 
+                    <a onClick={() => setCurrentStep('email')} style={{ cursor: 'pointer' ,color:"green" ,font:"30px"}}>
                       email verification
                     </a>
                   </Typography>
@@ -207,12 +204,10 @@ const Page = () => {
   );
 };
 
-Page.getLayout = (page) => (
+ResetPassword.getLayout = (page) => (
   <AuthLayout>
     {page}
   </AuthLayout>
 );
 
-export default Page;
-
-//basically this page is use to define the reset password accordingly
+export default ResetPassword;
